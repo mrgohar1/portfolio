@@ -16,6 +16,17 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Scroll margin top for sections to prevent sticky header overlap */
+section[id] {
+    scroll-margin-top: 76px;
+}
+
+@media (max-width: 768px) {
+    section[id] {
+        scroll-margin-top: 68px;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -53,7 +64,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     width: 100%;
 }
 
@@ -72,8 +83,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.70rem 0;
-    /* padding set exactly to 0.70rem 0 as requested */
+    padding: 1.1rem 0;
+    /* Increased to match visual style and height of the button */
+    transition: padding 0.3s ease;
 }
 
 .brand {
@@ -97,14 +109,16 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
-    
+
 }
 
 .main-nav a {
     text-decoration: none;
     color: var(--nav-text);
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-weight: 600;
+    /* Matches the visual weight of the button */
+    font-size: 1rem;
+    /* Slightly larger for consistency and readability */
     transition: var(--transition);
     position: relative;
 }
@@ -130,7 +144,8 @@ body {
 
 /* Hamburger Menu Toggle */
 .nav-controls {
-    display: none; /* hidden on desktop, shown on mobile */
+    display: none;
+    /* hidden on desktop, shown on mobile */
     align-items: center;
     gap: 0.5rem;
 }
@@ -175,12 +190,22 @@ body {
 }
 
 /* By default show moon, hide sun */
-.theme-toggle .icon-sun  { display: none; }
-.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+.theme-toggle .icon-moon {
+    display: block;
+}
 
 /* In dark mode: show sun, hide moon */
-.dark-mode .theme-toggle .icon-sun  { display: block; }
-.dark-mode .theme-toggle .icon-moon { display: none; }
+.dark-mode .theme-toggle .icon-sun {
+    display: block;
+}
+
+.dark-mode .theme-toggle .icon-moon {
+    display: none;
+}
 
 .hamburger {
     display: block;
@@ -255,10 +280,16 @@ body {
     font-weight: 700;
     letter-spacing: 2px;
     font-size: 0.85rem;
-    margin-top: 25px;      /* Navbar se distance */
+    margin-top: 25px;
+    /* Navbar se distance */
     margin-bottom: 0.75rem;
     display: block;
     text-align: left;
+}
+
+/* Center eyebrows in standard section headers (Services, Projects, Contact) */
+.section-header .eyebrow {
+    text-align: center;
 }
 
 
@@ -504,6 +535,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header-inner {
+        padding: 0.9rem 0;
+        /* Slightly smaller height on tablet/mobile */
+    }
 
     /* Responsive Navigation Menu */
     .nav-toggle {
@@ -519,7 +554,7 @@ body {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease-in-out;
-        
+
     }
 
     .main-nav.active {
@@ -663,7 +698,8 @@ body {
 }
 
 .projects-section .eyebrow {
-    color: var(--primary);
+    color: #3498db;
+    /* Same blue color as Services heading */
 }
 
 .projects-grid {
@@ -1224,7 +1260,8 @@ body {
     }
 
     .header-inner {
-        padding: 0.6rem 0;
+        padding: 0.8rem 0;
+        /* Slightly smaller height on small mobile */
     }
 }
 
@@ -1606,15 +1643,33 @@ body.dark-mode {
 
 /* Desktop: always show theme-toggle, hide nav-controls wrapper */
 @media (min-width: 769px) {
+
     /* On desktop, nav-controls still hidden but theme-toggle is
        shown standalone via the header-inner flex layout */
-    .nav-controls {
-        display: flex;        /* visible on desktop too */
-        align-items: center;
-        gap: 0.5rem;
+    .brand {
+        order: 1;
     }
+
+    .main-nav {
+        order: 2;
+        margin-left: auto;
+        /* Pushes the menu to the right side next to the toggle */
+    }
+
+    .nav-controls {
+        display: flex;
+        /* visible on desktop too */
+        align-items: center;
+        gap: 1.5rem;
+        /* Generous gap between theme toggle and menu */
+        order: 3;
+        /* Pushes the theme toggle to the far right */
+        margin-left: 2rem;
+    }
+
     .nav-toggle {
-        display: none;        /* hamburger hidden on desktop */
+        display: none;
+        /* hamburger hidden on desktop */
     }
 }
 
@@ -1623,6 +1678,7 @@ body.dark-mode {
     .nav-controls {
         display: flex;
     }
+
     .theme-toggle {
         display: flex;
     }
